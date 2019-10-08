@@ -3,18 +3,16 @@
 #install a libarary to connect to the World Bank API
 #easier, better than using https://data.worldbank.org ?
 #note that the 'safely managed' variables for water and sanitation have not been thoroughly created yet
-install.packages("wbstats")
+#Always Run Lines 9 through 30 when you begin work
+
+#install libraries for World Bank, spatial data, graphing, and data manipulation
+install.packages(c("wbstats","dplyr","sf","rgdal","rnaturalearth","RColorBrewer","ggplot2","rgeos"))
+
+#activate libraries for World Bank, spatial data, graphing, and data manipulation
+library(rgeos)
 library(wbstats)
-
-#install a library to connect to the Natural Earth geographic data
-install.packages("rnaturalearth")
 library(rnaturalearth)
-
-#install a library with good color gradients
-install.packages("RColorBrewer")
 library(RColorBrewer)
-
-#activate libraries for spatial data, graphing, and data manipulation
 library(rgdal)
 library(sf)
 library(ggplot2)
@@ -45,7 +43,7 @@ country_data <- left_join(necountries, wb(indicator = "SH.STA.BASS.ZS", country 
 #you may also change the map title, currently Population with Basic Sanitation, and legend title, currently Percentage.
 ggplot() + 
   geom_sf(data = st_transform(country_data,54009), aes(fill = cut_interval(value,7)), color = "grey")+
-  scale_fill_brewer(palette="RdBu")+
+  scale_fill_brewer(palette="Purples")+
   guides(fill=guide_legend(title="Percentage", title.hjust=0.5)) +
   labs(title = "Population with Basic Sanitation") +
   theme(plot.title = element_text(hjust = 0.5))
